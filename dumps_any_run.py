@@ -45,8 +45,6 @@ class Downloader:
             })
         return links
 
-    # print('https://app.any.run' + links[0]['link'])
-
     @staticmethod
     def download_pcaps(driver: selenium.webdriver.Firefox, links):
         try:
