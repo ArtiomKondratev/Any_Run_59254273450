@@ -34,14 +34,25 @@ class Downloader:
 
     @staticmethod
     def get_links(driver: selenium.webdriver.Firefox):
-        soup = BeautifulSoup(driver.page_source, "html.parser")
-        divs = soup.find_all("div", {"class": "history-table--content__row"})
+        links_number = 0
         links = []
-        for div in divs:
-            tag = div.a.extract()
-            links.append({
-                "link": tag.get('href')
-            })
+        while links_number < 200:
+            if links_number != 0:
+                button_sign = driver.find_element(by=By.CLASS_NAME, value='history-pagination__next')
+                button_sign.click()
+                time.sleep(3)
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+            divs = soup.find_all("div", {"class": "history-table--content__row"})
+            for div in divs:
+                tag = div.a.extract()
+                if tag.get('href') in links:
+                    continue
+                links.append({
+                    "link": tag.get('href')
+                })
+                links_number += 1
+            print(len(links))
+        print(len(links))
         return links
 
     @staticmethod
