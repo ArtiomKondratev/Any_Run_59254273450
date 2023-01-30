@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup, GuessedAtParserWarning
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 import time
+import pyautogui
 
 
 class Downloader:
@@ -27,8 +28,7 @@ class Downloader:
         button1.click()
         login = input("Пожалуйста, введите логин от any run - ")
         driver.find_element(by=By.ID, value='at-field-username_and_email').send_keys(login)
-        password = input('Пожалйста, введите пароль от any run - ')
-        driver.find_element(by=By.ID, value='at-field-password').send_keys(password)
+        driver.find_element(by=By.ID, value='at-field-password').send_keys(pyautogui.password(text='Пожалйста, введите пароль от any run - ', title='Ввод пароля', mask='*'))
         button_sign = driver.find_element(by=By.CSS_SELECTOR, value='button.at-btn')
         button_sign.click()
 
